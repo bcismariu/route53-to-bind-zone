@@ -1,19 +1,5 @@
-/*
-  r53-to-zonefile (browser)
-  - Accepts Route 53 JSON (list-resource-record-sets)
-  - Produces a BIND-style zonefile text
-  - Client-side only (FileReader, Blob)
-  - Caveats: large files may be slow in the browser; long TXT >255 is not chunked automatically
-*/
-
-
 (function () {
-    // const fileInput = document.getElementById('fileInput');
     const dropZone = document.getElementById('dropZone');
-    // const pasteBtn = document.getElementById('pasteBtn');
-    // const originInput = document.getElementById('origin');
-    // const useOriginDot = document.getElementById('useOriginDot');
-    // const convertBtn = document.getElementById('convertBtn');
     const downloadBtn = document.getElementById('downloadBtn');
     const clearBtn = document.getElementById('clearBtn');
     const output = document.getElementById('output');
@@ -215,11 +201,6 @@
     });
     output.addEventListener('input', updateBindCount);
 
-    // originInput removed
-
-    // Paste JSON button removed
-
-
     // Drag and drop file support
     dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -388,8 +369,6 @@
     clearBtn.addEventListener('click', () => {
         output.innerHTML = '';
         jsonInput.value = '';
-        // originInput.value = '';
-        // fileInput.value = null; // removed
         window.__r53_json = null;
         lastZoneText = '';
         lastOrigin = '';

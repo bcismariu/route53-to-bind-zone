@@ -4,18 +4,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Route 53 JSON to BIND zonefile online converter</title>
+    <title>Migrate DNS from AWS Route 53 to Cloudflare | Route 53 to BIND Zone File Converter</title>
+    <meta name="description"
+        content="Easily migrate your DNS zones from AWS Route 53 to Cloudflare DNS. Convert Route 53 JSON exports to BIND zone files for seamless Cloudflare import. No server upload, browser-based, secure, and free." />
+    <meta name="keywords"
+        content="migrate DNS, AWS Route 53, Cloudflare DNS, zone file, BIND, DNS migration, Route 53 to Cloudflare, DNS converter, export DNS, import DNS, JSON to BIND" />
+    <meta property="og:title" content="Migrate DNS from AWS Route 53 to Cloudflare" />
+    <meta property="og:description"
+        content="Convert AWS Route 53 DNS records to BIND zone files for Cloudflare import. Secure, browser-based, and free." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://route53-to-bind-zone.onrender.com/" />
+    <meta property="og:image" content="https://route53-to-bind-zone.onrender.com/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Migrate DNS from AWS Route 53 to Cloudflare" />
+    <meta name="twitter:description"
+        content="Convert AWS Route 53 DNS records to BIND zone files for Cloudflare import. Secure, browser-based, and free." />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-white text-gray-900 font-sans p-6">
-    <div class="max-w-[1240px] mx-auto px-2">
-        <h1 class="text-2xl font-bold mb-1">Route 53 JSON to BIND zonefile online converter</h1>
-        <p class="text-gray-600 text-sm mb-4">
-            Runs entirely in your browser — no upload to a server.
-        </p>
+    <main class="max-w-[1240px] mx-auto px-2">
+        <header class="mb-4">
+            <h1 class="text-3xl font-bold mb-2">Migrate DNS from AWS Route 53 to Cloudflare DNS</h1>
+            <p class="text-gray-700 text-base mb-2">
+                Seamlessly migrate your DNS zones from <strong>AWS Route 53</strong> to <strong>Cloudflare DNS</strong>
+                using this free, browser-based tool. Convert your Route 53 JSON export to a BIND zone file, ready for
+                Cloudflare import. No server upload, secure, and instant.
+            </p>
+            <p class="text-gray-600 text-sm mb-4">
+                Runs entirely in your browser — your DNS data never leaves your device.
+            </p>
+        </header>
 
-        <div class="flex flex-wrap gap-3 mb-3 items-center">
+        <section class="flex flex-wrap gap-3 mb-3 items-center">
             <div id="dropZone"
                 class="flex items-center justify-center border-2 border-dashed border-blue-200 rounded bg-blue-50 text-blue-400 px-8 py-3 cursor-pointer transition hover:bg-blue-100 min-w-[340px] w-full max-w-xl mx-auto"
                 style="min-height:2.5rem;">
@@ -33,12 +54,12 @@
             <div class="flex-1"></div>
             <button id="clearBtn"
                 class="ml-auto px-3 py-1 rounded bg-red-100 hover:bg-red-200 text-red-800 border border-red-200">Clear</button>
-        </div>
+        </section>
 
         <div id="status" class="text-gray-500 text-sm mb-1"></div>
         <div id="messages"></div>
 
-        <div class="flex flex-wrap gap-6 items-start mt-6">
+        <section class="flex flex-wrap gap-6 items-start mt-6">
             <div class="flex-1 min-w-[320px]">
                 <label for="jsonInput" class="font-semibold mb-1 block">JSON input</label>
                 <textarea id="jsonInput" placeholder="Paste or load Route 53 JSON here"
@@ -55,10 +76,10 @@
                     class="self-end mt-2 px-3 py-1 rounded bg-green-100 text-green-800 border border-green-200 hover:bg-green-200 disabled:opacity-50 hidden">Download
                     zonefile</button>
             </div>
-        </div>
+        </section>
 
         <!-- AWS Export Instructions -->
-        <div class="max-w-3xl mx-auto mt-10 bg-blue-50 border border-blue-100 rounded p-5 text-sm text-gray-800">
+        <section class="max-w-3xl mx-auto mt-10 bg-blue-50 border border-blue-100 rounded p-5 text-sm text-gray-800">
             <h2 class="font-semibold text-base mb-2 text-blue-900">How to Export Your Route 53 DNS Records from AWS</h2>
             <ol class="list-decimal list-inside space-y-2">
                 <li>
@@ -104,8 +125,8 @@
                     and is ready for use in this app.
                 </li>
             </ol>
-        </div>
-    </div>
+        </section>
+    </main>
     <script src="main.js"></script>
 
     <!-- Footer disclaimer -->

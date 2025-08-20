@@ -41,12 +41,22 @@
 
     function formatNameForZonefile(name, originFqdn) {
         if (isApex(name, originFqdn)) return '@'
-        // Optionally shorten names that end with originFqdn to relative form.
         if (name.endsWith('.' + originFqdn.slice(0, -1)) || name === originFqdn) {
-            // keep full for safety, but you could convert to relative if desired
             return name
         }
         return name
+    }
+
+    // Ensure a value is a FQDN (ends with a dot) if it looks like a domain name
+    function ensureFqdn(val) {
+        if (typeof val !== 'string') return val;
+        // If it's an IPv4/IPv6 address, don't add a dot
+        if (/^(\d{1,3}\.){3}\d{1,3}$/.test(val) || val.includes(':')) return val;
+        // If it already ends with a dot, return as is
+        if (val.endsWith('.')) return val;
+        // If it looks like a domain (contains a dot and no spaces), add a dot
+        if (val.match(/^[A-Za-z0-9.-]+$/) && val.includes('.')) return val + '.';
+        return val;
     }
 
     function escapeTxtValue(v) {
@@ -115,7 +125,7 @@
                 out.push(`; ALIAS ${nameOut} -> ${target} (HostedZoneId:${hosted}) ${metaComment(rr)}`)
                 if (!isApex(name, originFqdn)) {
                     // For non-apex, emit a CNAME line to help imports - be careful: CNAME cannot coexist with other RR types
-                    out.push(`${nameOut}\t${ttl}\tIN\tCNAME\t${target}`)
+                    out.push(`${nameOut}\t${ttl}\tIN\tCNAME\t${ensureFqdn(target)}`)
                 } else {
                     out.push(`; NOTE: Apex ALIAS present for ${originFqdn}. Recreate using CNAME flattening or A records in your DNS provider.`)
                 }
@@ -129,6 +139,16 @@
                     if (type === 'TXT' || type === 'SPF') {
                         val = escapeTxtValue(val)
                         out.push(`${nameOut}\t${ttl}\tIN\t${type}\t${val}`)
+                    } else if (type === 'CNAME' || type === 'MX' || type === 'NS') {
+                        // For MX, the value may be "priority target" (e.g., "10 mail.example.com")
+                        if (type === 'MX' && val.match(/^\d+\s+\S+/)) {
+                            const parts = val.split(/\s+/)
+                            const prio = parts.shift()
+                            const target = parts.join(' ')
+                            out.push(`${nameOut}\t${ttl}\tIN\tMX\t${prio} ${ensureFqdn(target)}`)
+                        } else {
+                            out.push(`${nameOut}\t${ttl}\tIN\t${type}\t${ensureFqdn(val)}`)
+                        }
                     } else {
                         out.push(`${nameOut}\t${ttl}\tIN\t${type}\t${val}`)
                     }

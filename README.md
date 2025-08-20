@@ -1,7 +1,4 @@
-
-
 # Migrate DNS from AWS Route 53 to Cloudflare DNS
-
 
 ## Live Demo
 Use the app instantly online: [https://route53-to-bind-zone.onrender.com/](https://route53-to-bind-zone.onrender.com/)
@@ -53,6 +50,12 @@ To use this converter, you need to export your DNS records from AWS Route 53 as 
 	  aws route53 list-hosted-zones
 	  ```
 	- Find the `Id` of the zone you want to export (it looks like `/hostedzone/XXXXXXXXXXXXXX`).
+
+	- **To filter for a particular domain name (e.g., `your-domain-name`):**
+	  ```
+	  aws route53 list-hosted-zones --query 'HostedZones[?contains(Name, `your-domain-name`)]'
+	  ```
+	- This will show only hosted zones containing your domain name in the results.
 
 3. **Export DNS Records to JSON**
 	- Replace `ZXXXXXXXXXXXXXX` with your actual hosted zone ID (omit the `/hostedzone/` prefix):

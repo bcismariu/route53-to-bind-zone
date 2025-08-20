@@ -99,6 +99,16 @@
                     </div>
                     Find the <code>Id</code> of the zone you want to export (it looks like
                     <code>/hostedzone/XXXXXXXXXXXXXX</code>).
+                    <br>
+                    <b>To filter for a particular domain name (e.g., <code>your-domain-name</code>):</b>
+                    <div class="relative group mt-2">
+                        <button type="button"
+                            class="absolute right-2 top-2 z-10 text-xs text-blue-700 bg-blue-100 rounded px-2 py-0.5 opacity-80 hover:opacity-100 copy-btn"
+                            data-copy="aws route53 list-hosted-zones --query 'HostedZones[?contains(Name, `your-domain-name`)]'">Copy</button>
+                        <pre
+                            class="block bg-gray-100 rounded px-2 py-2 my-1 text-xs whitespace-pre-wrap"><code>aws route53 list-hosted-zones --query 'HostedZones[?contains(Name, `your-domain-name`)]'</code></pre>
+                    </div>
+                    This will show only hosted zones containing your domain name in the results.
                 </li>
                 <li>
                     <b>Export DNS Records to JSON</b><br>
